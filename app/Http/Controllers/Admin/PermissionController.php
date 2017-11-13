@@ -93,7 +93,8 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-
+        $result = $this->permission->delete($id);
+        return response()->json($result ? ['status' => 1] : ['status' => 0]);
     }
 
     public function ajaxIndex(Request $request)

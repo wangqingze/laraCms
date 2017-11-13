@@ -59,7 +59,7 @@
                                         <option value="">-- 请选择 --</option>
                                         <option value="0" @if($permission['pid'] == 0) selected="selected" @endif>顶级菜单</option>
                                         @foreach($topNodes as $value)
-                                            <option value="{{ $value->id }}" @if($value->id == $permission['parent_id']) selected="selected" @endif>{{ $value->name }}</option>
+                                            <option value="{{ $value->id }}" @if($value->id == $permission['pid']) selected="selected" @endif>{{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                     <p id="pid_error"></p>
@@ -82,22 +82,22 @@
                             <div class="form-group">
                                 <label class="control-label col-md-4 col-sm-4" for="icon">图标 * :</label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control" type="text" name="icon" placeholder="图标" value="{{ $permission->icon }}" />
+                                    <input class="form-control" type="text" name="icon" placeholder="图标" value="{{ $permission['icon'] }}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-4 col-sm-4" for="is_menu">是否菜单 * :</label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input type="radio" name="is_menu"  value="1" {{ $permission->is_menu ? 'checked' : '' }}  />
+                                    <input type="radio" name="is_menu"  value="1" {{ $permission['is_menu'] ? 'checked' : '' }}  />
                                     <label>是</label>&nbsp;&nbsp;
-                                    <input type="radio" name="is_menu"  value="0" {{ $permission->is_menu ? '' : 'checked' }}  />
+                                    <input type="radio" name="is_menu"  value="0" {{ $permission['is_menu'] ? '' : 'checked' }}  />
                                     <label>否</label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-4 col-sm-4" for="sort">排序 * :</label>
                                 <div class="col-md-2 col-sm-2">
-                                    <input class="form-control" type="text" name="sort" placeholder="排序" value="{{ $permission->sort }}" />
+                                    <input class="form-control" type="text" name="sort" placeholder="排序" value="{{ $permission['sort'] }}" />
                                 </div>
                             </div>
                             <div class="form-group">

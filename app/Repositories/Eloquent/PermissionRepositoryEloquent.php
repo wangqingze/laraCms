@@ -94,5 +94,22 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
         return $res;
     }
 
+    public function delete($id)
+    {
+        $permission = $this->model->find($id);
+        if(!$permission) {
+            return false;
+        }
+        $subPermissions = $this->model->where('pid',$id)->get();
+        if($subPermissions) {
+            foreach ($subPermissions as $sub) {
+                $sub->roles()->detach();
+                parent::delete($sub->id);
+            }
+        }
+        $permission->roles()->detach();
+        return parent::delete($id);
+    }
+
 
 }
