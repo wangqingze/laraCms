@@ -9,18 +9,18 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
-use App\Repositories\Eloquent\MenuRepositoryEloquent as MenuRepository;
+use App\Repositories\Eloquent\PermissionRepositoryEloquent as PermissionRepository;
 
 class AdminMenuComposer{
-    protected $menu;
+    protected $permission;
 
-    public function __construct(MenuRepository $menuRepository)
+    public function __construct(PermissionRepository $permissionRepository)
     {
-        $this->menu = $menuRepository;
+        $this->permission = $permissionRepository;
     }
 
     public function compose(View $view)
     {
-        $view->with('adminMenus',$this->menu->getMenuComposerData());
+        $view->with('adminMenus',$this->permission->menus());
     }
 }

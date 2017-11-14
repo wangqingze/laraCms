@@ -15,7 +15,7 @@ class RoleController extends Controller
     public $permission;
     public function __construct(RoleRepository $roleRepository,PermissionRepository $permissionRepository)
     {
-        $this->middleware('CheckPermission:role');
+//        $this->middleware('CheckPermission:role');
         $this->role = $roleRepository;
         $this->permission = $permissionRepository;
     }

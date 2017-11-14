@@ -99,7 +99,7 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepositoryInt
     {
         //$rolePermission = $role->permissions->toArray();
         
-        $role = $this->model->find($id,['id','name','display_name','description'])->toArray();
+        $role = $this->model->find($id)->toArray();
         
         $rolePermissionList = DB::table('permission_role')->where('role_id',$id)->get(['permission_id']);
         $getRolePermissionClosure = function($permissionList){
@@ -112,7 +112,7 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepositoryInt
 
         $rolePermission = $getRolePermissionClosure($rolePermissionList);
         
-        $permissions = Permission::all(['id','display_name'])->toArray();
+        $permissions = Permission::all(['id','pid','display_name'])->toArray();
 
         return compact('role','rolePermission','permissions');
     }

@@ -10,6 +10,8 @@ class Permission extends EntrustPermission
 
     protected $fillable = ['display_name', 'pid', 'name', 'description', 'icon', 'is_menu', 'sort'];
 
+    protected $appends = ['sub_permission'];
+
     public function getNameAttribute($value)
     {
         if(starts_with($value, '#')) {
@@ -23,8 +25,14 @@ class Permission extends EntrustPermission
         $this->attributes['name'] = ($value == '#') ? '#-' . time() : $value;
     }
 
+    public function getSubPermissionAttribute()
+    {
+        return ($this->attributes['pid'] == 0) ? $this->where('pid',$this->attributes['id'])->orderBy('sort', 'asc')->get() : null;
+    }
+
     public function roles(){
         return $this->belongsToMany(Role::class,'permission_role');
     }
+
 
 }

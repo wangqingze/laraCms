@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PermissionRequest;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquent\PermissionRepositoryEloquent as PermissionRepository;
+use Toastr;
 
 class PermissionController extends Controller
 {
@@ -13,7 +14,6 @@ class PermissionController extends Controller
 
     public function __construct(PermissionRepository $permissionRepository)
     {
-//        $this->middleware('CheckPermission:permission');
         $this->permission = $permissionRepository;
     }
 
@@ -22,7 +22,7 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('admin.permission.index');
     }
@@ -94,7 +94,12 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         $result = $this->permission->delete($id);
-        return response()->json($result ? ['status' => 1] : ['status' => 0]);
+        if($result) {
+            Toastr::success('删除成功！');
+        }else {
+            Toastr::error('删除失败，请稍后再试！');
+        }
+        return redirect('admin/permission');
     }
 
     public function ajaxIndex(Request $request)

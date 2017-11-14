@@ -181,6 +181,11 @@ return [
          */
         Stevenyangecho\UEditor\UEditorServiceProvider::class,
 
+        /**
+         * Toastr
+         */
+        Yuansir\Toastr\ToastrServiceProvider::class,
+
     ],
 
     /*
@@ -237,6 +242,10 @@ return [
          */
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
+        /**
+         * Toastr
+         */
+        'Toastr' => Yuansir\Toastr\Facades\Toastr::class,
     ],
 
 ];

@@ -12,7 +12,8 @@
         "league/fractal": "^0.16.0",
         "barryvdh/laravel-debugbar": "^2.4",
         "stevenyangecho/laravel-u-editor": "^1.4",
-        "zizaco/entrust": "5.2.x-dev"
+        "zizaco/entrust": "5.2.x-dev",
+        "ryan/toastr-for-laravel": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

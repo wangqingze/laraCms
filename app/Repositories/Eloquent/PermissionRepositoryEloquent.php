@@ -100,15 +100,42 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
         if(!$permission) {
             return false;
         }
-        $subPermissions = $this->model->where('pid',$id)->get();
-        if($subPermissions) {
-            foreach ($subPermissions as $sub) {
+//        $subPermissions = $this->model->where('pid',$id)->get();
+        if($permission->sub_permission) {
+            foreach ($permission->sub_permission as $sub) {
                 $sub->roles()->detach();
                 parent::delete($sub->id);
             }
         }
         $permission->roles()->detach();
         return parent::delete($id);
+    }
+
+    /**
+     * Permission Menus
+     * @return array
+     */
+    public function menus()
+    {
+        $menus = [];
+        $father = $this->model->where('pid', 0)->where('is_menu', 1)->orderBy('sort', 'asc')->orderBy('id', 'asc')->get()->toArray();
+        if($father) {
+            foreach ($father as $item) {
+
+                if($item['sub_permission']) {
+                    foreach ($item['sub_permission'] as $key => $sub) {
+                        if($sub['is_menu']) {
+                            $item['sub'][] = $sub;
+                        }
+                    }
+                    unset($item['sub_permission']);
+                }
+
+                $menus[] = $item;
+            }
+        }
+
+        return $menus;
     }
 
 
